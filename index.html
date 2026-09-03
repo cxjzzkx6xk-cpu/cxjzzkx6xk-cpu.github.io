@@ -59,6 +59,10 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
 .stat-card .v{font-size:26px;font-weight:700;color:var(--primary)}
 .stat-card .l{font-size:12px;color:var(--muted);margin-top:3px}
 .stat-card .u{font-size:13px;font-weight:normal;color:var(--muted)}
+.stat-card[data-go]{cursor:pointer;transition:transform .15s,box-shadow .15s}
+.stat-card[data-go]:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.14)}
+.info-card ul li[data-go]{cursor:pointer;border-radius:4px}
+.info-card ul li[data-go]:hover{color:var(--primary)}
 .chart-box{background:var(--card);border-radius:8px;padding:18px;box-shadow:var(--shadow);margin-bottom:18px}
 .chart-box h3{font-size:14px;color:var(--primary);margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid var(--border)}
 .bar-chart{display:flex;flex-direction:column;gap:8px}
@@ -111,7 +115,7 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
   </div>
   <nav id="navMenu">
     <div class="nav-group">数据概览</div>
-    <a class="nav-link active" data-target="dashboard"><span class="icon">📊</span> 总览仪表盘</a>
+    <a class="nav-link active" data-target="dashboard"><span class="icon">📊</span> 反腐永远在路上</a>
 
     <div class="nav-group">基础法规</div>
     <a class="nav-link" data-target="laws"><span class="icon">📜</span> 核心法律法规</a>
@@ -146,7 +150,7 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
 <!-- ===== 总览 ===== -->
 <section class="section active" id="dashboard">
   <div class="section-header">
-    <h2>总览仪表盘</h2>
+    <h2>反腐永远在路上</h2>
     <div class="desc">聚焦审查调查能力提升 · 依据中纪委网站定义收录 · 13大板块 · 180+条精选数据</div>
   </div>
 
@@ -158,13 +162,13 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
   <div class="stats-grid">
     <div class="stat-card"><div class="v">13<span class="u">大板块</span></div><div class="l">数据库一级分类</div></div>
     <div class="stat-card"><div class="v">180+<span class="u">条</span></div><div class="l">精选数据记录</div></div>
-    <div class="stat-card"><div class="v">22<span class="u">部</span></div><div class="l">政策法规文件</div></div>
-    <div class="stat-card"><div class="v">47<span class="u">+条</span></div><div class="l">典型案例记录</div></div>
-    <div class="stat-card"><div class="v">5<span class="u">年</span></div><div class="l">历史统计数据</div></div>
-    <div class="stat-card"><div class="v">12<span class="u">部</span></div><div class="l">央视反腐专题片</div></div>
-    <div class="stat-card"><div class="v">11<span class="u">部</span></div><div class="l">警示教育与培训视频</div></div>
-    <div class="stat-card"><div class="v">14<span class="u">部</span></div><div class="l">理论实务教材</div></div>
-    <div class="stat-card"><div class="v">12<span class="u">项</span></div><div class="l">实务操作指引</div></div>
+    <div class="stat-card" data-go="laws" onclick="goSection('laws')"><div class="v">22<span class="u">部</span></div><div class="l">政策法规文件</div></div>
+    <div class="stat-card" data-go="cases" onclick="goSection('cases')"><div class="v">47<span class="u">+条</span></div><div class="l">典型案例记录</div></div>
+    <div class="stat-card" data-go="stats" onclick="goSection('stats')"><div class="v">5<span class="u">年</span></div><div class="l">历史统计数据</div></div>
+    <div class="stat-card" data-go="videos" onclick="goSection('videos')"><div class="v">12<span class="u">部</span></div><div class="l">央视反腐专题片</div></div>
+    <div class="stat-card" data-go="videos" onclick="goSection('videos')"><div class="v">11<span class="u">部</span></div><div class="l">警示教育与培训视频</div></div>
+    <div class="stat-card" data-go="theory" onclick="goSection('theory')"><div class="v">14<span class="u">部</span></div><div class="l">理论实务教材</div></div>
+    <div class="stat-card" data-go="practice" onclick="goSection('practice')"><div class="v">12<span class="u">项</span></div><div class="l">实务操作指引</div></div>
   </div>
 
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
@@ -194,10 +198,10 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
   <div class="info-card">
     <h4>数据库板块说明</h4>
     <ul>
-      <li><span class="li-label">基础法规：</span>核心法律法规、党内法规制度、规范性文件三大类共22部，审查调查的法律依据</li>
-      <li><span class="li-label">审查调查：</span>典型案例库（60+条）、统计数据（5年）、工作规程（全流程6阶段12项措施）</li>
-      <li><span class="li-label">专项工作：</span>专项整治（8大领域）、国际追逃追赃（天网行动）、以案促改促治（"通篇文章"）</li>
-      <li><span class="li-label">能力提升：</span>警示教育片（11部）、理论与教材（14部）、实务指导（12项）、队伍建设</li>
+      <li data-go="laws" onclick="goSection('laws')"><span class="li-label">基础法规：</span>核心法律法规、党内法规制度、规范性文件三大类共22部，审查调查的法律依据</li>
+      <li data-go="cases" onclick="goSection('cases')"><span class="li-label">审查调查：</span>典型案例库（60+条）、统计数据（5年）、工作规程（全流程6阶段12项措施）</li>
+      <li data-go="special" onclick="goSection('special')"><span class="li-label">专项工作：</span>专项整治（8大领域）、国际追逃追赃（天网行动）、以案促改促治（"通篇文章"）</li>
+      <li data-go="videos" onclick="goSection('videos')"><span class="li-label">能力提升：</span>警示教育片（11部）、理论与教材（14部）、实务指导（12项）、队伍建设</li>
       <li><span class="li-label">收录标准：</span>依据中纪委网站审查调查定义，已剔除廉政文化、娱乐性等非审查调查内容，仅保留权威来源直达原文链接</li>
     </ul>
   </div>
@@ -813,6 +817,18 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
     window.scrollTo(0, 0);
   });
 
+    // 板块跳转（仪表盘卡片/条目点击）
+  window.goSection = function(target) {
+    var sections = document.querySelectorAll('.section');
+    for (var i = 0; i < sections.length; i++) sections[i].classList.remove('active');
+    var navLinks = document.querySelectorAll('.nav-link');
+    for (var j = 0; j < navLinks.length; j++) navLinks[j].classList.remove('active');
+    var tsec = document.getElementById(target);
+    if (tsec) tsec.classList.add('active');
+    var nlink = document.querySelector('.nav-link[data-target="' + target + '"]');
+    if (nlink) nlink.classList.add('active');
+    window.scrollTo(0, 0);
+  };
   // 通用Tab切换
   function setupTabs(containerId) {
     var container = document.getElementById(containerId);
