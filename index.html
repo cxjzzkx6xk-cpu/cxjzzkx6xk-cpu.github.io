@@ -103,7 +103,29 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
 .tab.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:600}
 .tab-pane{display:none}
 .tab-pane.active{display:block}
-@media (max-width:768px){#sidebar{display:none}#main{margin-left:0}.section{padding:14px}.card-grid{grid-template-columns:1fr}.data-source ul{columns:1}}
+#mobileTopbar{display:none}
+#scrim{display:none}
+@media (max-width:768px){
+  #mobileTopbar{display:flex;position:sticky;top:0;z-index:200;background:#8B0000;color:#fff;align-items:center;gap:10px;padding:10px 12px}
+  #mobileTopbar button{background:none;border:none;color:#fff;font-size:22px;line-height:1;cursor:pointer;padding:0 4px}
+  #mobileTopbar .m-title{font-size:14px;font-weight:600;letter-spacing:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #scrim{display:block;position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.45);z-index:250;opacity:0;pointer-events:none;transition:opacity .25s}
+  #scrim.show{opacity:1;pointer-events:auto}
+  #sidebar{display:block;transform:translateX(-100%);transition:transform .25s;width:264px;z-index:300}
+  #sidebar.open{transform:translateX(0)}
+  #main{margin-left:0}
+  .section{padding:12px 14px}
+  .card-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .data-source ul{columns:1}
+  .tabs{flex-wrap:wrap}
+  .tab{padding:8px 12px;font-size:12px}
+  .data-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .data-table thead th{white-space:nowrap}
+  .bar-row .bl{width:76px}
+  .info-card ul li{flex-direction:column;gap:2px}
+  .info-card ul li .lb{min-width:0}
+}
 </style>
 </head>
 <body>
@@ -144,6 +166,9 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
     仅供学习研究使用
   </div>
 </aside>
+
+<div id="mobileTopbar"><button id="menuToggle" aria-label="打开菜单">&#9776;</button><span class="m-title">纪检监察审查调查工作数据库</span></div>
+<div id="scrim"></div>
 
 <div id="main">
 
@@ -836,6 +861,14 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
 (function() {
   'use strict';
 
+  // 移动端抽屉菜单
+  var sidebarEl = document.getElementById('sidebar');
+  var menuToggle = document.getElementById('menuToggle');
+  var scrimEl = document.getElementById('scrim');
+  function closeMenu(){ if (sidebarEl) sidebarEl.classList.remove('open'); if (scrimEl) scrimEl.classList.remove('show'); }
+  if (menuToggle) { menuToggle.addEventListener('click', function(){ if (sidebarEl) sidebarEl.classList.toggle('open'); if (scrimEl) scrimEl.classList.toggle('show'); }); }
+  if (scrimEl) { scrimEl.addEventListener('click', closeMenu); }
+
   // 侧边栏导航
   document.getElementById('navMenu').addEventListener('click', function(e) {
     var link = e.target.closest('.nav-link');
@@ -850,6 +883,7 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
     if (targetSection) targetSection.classList.add('active');
     link.classList.add('active');
     window.scrollTo(0, 0);
+    closeMenu();
   });
 
     // 板块跳转（仪表盘卡片/条目点击）
@@ -863,6 +897,7 @@ body{font-family:"Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif;b
     var nlink = document.querySelector('.nav-link[data-target="' + target + '"]');
     if (nlink) nlink.classList.add('active');
     window.scrollTo(0, 0);
+    closeMenu();
   };
   // 通用Tab切换
   function setupTabs(containerId) {
